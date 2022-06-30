@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 const path = require('path');
-
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
   // base: path.resolve(__dirname, './dist/'),
   base: "./",
@@ -15,7 +16,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-  ]
+    Components({
+      resolvers: [NaiveUiResolver()],
+      dts: 'components.d.ts'
+    }),
+  ],
 })
 // import { defineConfig } from 'vite'
 // import vue from '@vitejs/plugin-vue'
