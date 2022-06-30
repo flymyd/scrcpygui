@@ -1,7 +1,7 @@
 import { ArgsInterface } from "./Declares";
 
 const exec = require('child_process').exec;
-export function start() {
+export function start(workDir: string='') {
   let scrcpyWorker;
   runExec({
     CaptureConfig: {
@@ -12,7 +12,7 @@ export function start() {
   });
 
   function runExec(args?: ArgsInterface) {
-    scrcpyWorker = exec(`scrcpy -m ${args?.CaptureConfig?.reduceSize} -b ${args?.CaptureConfig?.changeBitRate} --max-fps ${args?.CaptureConfig?.maxFps}`)
+    scrcpyWorker = exec(`${workDir}scrcpy -m ${args?.CaptureConfig?.reduceSize} -b ${args?.CaptureConfig?.changeBitRate} --max-fps ${args?.CaptureConfig?.maxFps}`)
     scrcpyWorker.stdout.on('data', function (data: String | Object) {
       console.log('stdout: ' + data)
     })
