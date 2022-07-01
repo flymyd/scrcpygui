@@ -7,3 +7,10 @@ createApp(App)
 .use(router)
 .use(pinia)
 .mount('#app')
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title as any
+  }
+  next()
+})

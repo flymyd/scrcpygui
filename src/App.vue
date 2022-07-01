@@ -15,16 +15,12 @@ import { useStore } from './store';
 //Check scrcpy installation status 
 const store = useStore();
 const exec = require('child_process').exec;
-let scrcpyWorker;
-(function runExec() {
-  scrcpyWorker = exec(`which scrcpy`)
-  scrcpyWorker.stdout.on('data', function (data: String) {
-    if (data.indexOf("not found") == -1) {
-      store.scrcpyInstalled();
-    }
-  })
-})()
-
+let scrcpyWorker = exec(`which scrcpy`);
+scrcpyWorker.stdout.on('data', function (data: String) {
+  if (data.indexOf("not found") == -1) {
+    store.scrcpyInstalled();
+  }
+})
 </script>
 
 <template>
@@ -36,6 +32,7 @@ let scrcpyWorker;
 
 <style lang="scss">
 @import "@/assets/css/public.scss";
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

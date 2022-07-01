@@ -9,7 +9,6 @@
   </n-layout>
 </template>
 <script setup lang="ts">
-import { start } from "@/core/index";
 import { MenuOption } from "naive-ui";
 import { h, ref } from "vue";
 import { RouterLink } from "vue-router";
@@ -35,9 +34,6 @@ const renderMenuLabel = (option: MenuOption) => {
     )
   }
   return option.label as string
-}
-const open = () => {
-  start();
 }
 </script>
 <style scoped lang="scss">
