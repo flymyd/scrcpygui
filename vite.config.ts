@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-const path = require('path');
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+import AutoImport from 'unplugin-auto-import/vite'
+const path = require('path');
 export default defineConfig({
   // base: path.resolve(__dirname, './dist/'),
   base: "./",
@@ -16,10 +18,15 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    VueSetupExtend(),
     Components({
       resolvers: [NaiveUiResolver()],
       dts: 'components.d.ts'
     }),
+    AutoImport({
+      // dts: 'src/auto-imports.d.ts', // 可以自定义文件生成的位置，默认是根目录下
+      imports: ['vue']
+    })
   ],
 })
 // import { defineConfig } from 'vite'

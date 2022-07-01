@@ -1,0 +1,12 @@
+.scgui-main-container {
+  min-height: 100vh;
+}
+
+.scgui-main-menu {
+  height: 100vh;
+  overflow: scroll;
+}
+
+.scgui-main-menu::-webkit-scrollbar {
+  display: none;
+}

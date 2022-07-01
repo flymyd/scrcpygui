@@ -32,22 +32,29 @@
     }
   },
   "dependencies": {
+    "@vicons/ionicons5": "^0.12.0",
     "fix-path": "^3.0.0",
+    "pinia": "^2.0.14",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
+    "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^2.3.3",
     "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
     "electron": "^19.0.6",
     "electron-builder": "^23.1.0",
     "naive-ui": "^2.30.8",
+    "sass": "^1.53.0",
     "typescript": "^4.5.4",
+    "unplugin-auto-import": "^0.9.2",
     "unplugin-vue-components": "^0.20.1",
     "vfonts": "^0.0.3",
     "vite": "^2.9.9",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-global-api": "^0.4.1",
     "vue-tsc": "^0.34.7",
     "wait-on": "^6.0.1"
   }
