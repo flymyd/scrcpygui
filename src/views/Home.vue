@@ -1,6 +1,6 @@
 <template>
   <div class="scgui-home flex-col">
-    <img class="scgui-home-icon" :src="icon" />
+    <img class="scgui-home-icon" :src="icon"/>
     <n-gradient-text class="scgui-home-title" type="success">
       欢迎使用Scrcpy GUI
     </n-gradient-text>
@@ -9,7 +9,7 @@
         ADB{{ adbVersion ? ` ${adbVersion}` : '未找到' }}
       </n-tag>
       <n-tag :class="scrcpyVersion ? 'scgui-tag-can-click' : ''" :bordered="false"
-        :type="scrcpyVersion ? 'success' : 'error'" @click="showScrcpyInfo = true">
+             :type="scrcpyVersion ? 'success' : 'error'" @click="showScrcpyInfo = true">
         Scrcpy{{ scrcpyVersion ? ` ${scrcpyVersion}` : '未找到' }}
       </n-tag>
     </div>
@@ -20,7 +20,7 @@
     </div>
     <!-- These functions must need ADB interfaces -->
     <div v-if="adbVersion">
-      <n-button type="success" size="large" v-if="adbVersion && scrcpyVersion">开始镜像 →</n-button>
+      <n-button type="success" size="large" v-if="adbVersion && scrcpyVersion" @click="start">开始镜像 →</n-button>
     </div>
   </div>
   <n-modal v-model:show="showScrcpyInfo" transform-origin="mouse" v-if="scrcpyVersion">
@@ -32,19 +32,20 @@
   </n-modal>
 </template>
 <script setup lang="ts">
-import { useStore } from "@/store";
-import { checkADBVersion, checkScrcpyVersion } from "@/utils/EnvUtils";
-import { Process } from "@/utils/Process";
-import { reactive, ref } from "@vue/reactivity";
-import { hi } from "date-fns/locale";
-import { storeToRefs } from "pinia";
-import { computed, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import {useStore} from "@/store";
+import {checkADBVersion, checkScrcpyVersion} from "@/utils/EnvUtils";
+import {Process} from "@/utils/Process";
+import {reactive, ref} from "@vue/reactivity";
+import {hi} from "date-fns/locale";
+import {storeToRefs} from "pinia";
+import {computed, onMounted} from "vue";
+import {useRouter} from "vue-router";
 import icon from "/icon.svg";
+import {getAttachedDevices} from "@/utils/Adb";
 
 const store = useStore();
 const router = useRouter();
-const { scrcpyVersion, adbVersion, scrcpyInfo } = storeToRefs(store);
+const {scrcpyVersion, adbVersion, scrcpyInfo} = storeToRefs(store);
 const showScrcpyInfo = ref(false);
 //Check scrcpy installation status 
 checkADBVersion();
@@ -58,6 +59,28 @@ const settingsHint = computed(() => {
 })
 const goSettings = () => {
   router.push('MySettings')
+}
+const start = async () => {
+  const devices: any = await getAttachedDevices().catch(err => {
+    return err;
+  })
+  if (devices.length < 1) {
+    //无设备逻辑
+    return false;
+  } else if (devices.length === 1) {
+    //单设备逻辑，判断连接模式
+  } else {
+    //选择连接设备
+  }
+  // new Process().exec({
+  //   cmd: 'scrcpy -d',
+  //   stderr(err: string) {
+  //     console.log(err)
+  //   },
+  //   stdout(out: string) {
+  //     console.log(out)
+  //   }
+  // })
 }
 </script>
 <style scoped lang="scss">

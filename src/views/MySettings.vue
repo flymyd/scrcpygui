@@ -30,7 +30,7 @@ const { autoStart, adbPath, scrcpyPath } = storeToRefs(mySettings);
 const { setAdbPath, setScrcpyPath } = mySettings;
 const placeholders = {
   adbPath: '请输入ADB可执行文件的路径, 如/opt/homebrew/bin/adb',
-  scrcpyPath: '请输入ADB可执行文件的路径, 如/opt/local/bin/scrcpy'
+  scrcpyPath: '请输入Scrcpy可执行文件的路径, 如/opt/local/bin/scrcpy'
 };
 </script>
 <style scoped lang="scss">
