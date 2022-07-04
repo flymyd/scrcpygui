@@ -16,8 +16,16 @@ span {
 }
 
 .scgui-install-status {
-  margin-top: 12px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+
   .n-tag {
     margin-right: 10px;
+  }
+}
+
+.scgui-tag-can-click {
+  :hover {
+    cursor: pointer;
   }
 }

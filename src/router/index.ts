@@ -18,6 +18,22 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'About',
+        name: 'About',
+        component: () => import("@/views/About.vue"),
+        meta: {
+          title: '关于'
+        }
+      },
+      {
+        path: 'MySettings',
+        name: 'MySettings',
+        component: () => import("@/views/MySettings.vue"),
+        meta: {
+          title: '软件设置'
+        }
+      },
+      {
         path: 'Settings/Mirror',
         name: 'Mirror',
         component: () => import("@/views/Settings/Mirror.vue"),

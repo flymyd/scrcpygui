@@ -1,3 +1,5 @@
+import { mySettingsStore } from "@/store";
+
 export class Process {
   execFileFunc: any;
   execFunc: any;
@@ -18,10 +20,12 @@ export class Process {
     }
   }
   exec(options: ProcessOptions) {
+    options.cmd = userPathFix(options.cmd)
     this.worker = this.execFunc(options.cmd)
     this.callbackSettings(options)
   }
   execFile(options: ProcessOptions) {
+    options.cmd = userPathFix(options.cmd)
     if (typeof options.args == "undefined") {
       this.worker = this.execFileFunc(options.cmd)
     } else {
@@ -37,4 +41,13 @@ interface ProcessOptions {
   close?: Function,
   stdout?: Function,
   stderr?: Function,
+}
+
+function userPathFix(cmd: string) {
+  const mySettings = mySettingsStore();
+  switch (cmd) {
+    case 'adb': return mySettings.adbPath ? mySettings.adbPath : 'adb';
+    case 'scrcpy': return mySettings.scrcpyPath ? mySettings.scrcpyPath : 'scrcpy';
+    default: return cmd;
+  }
 }

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { computed, markRaw, reactive, watchEffect } from '@vue/runtime-core';
 import { darkTheme, useOsTheme } from 'naive-ui';
-import { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface';
-import { useStore } from './store';
+import { OSUtils } from './utils/OSUtils';
 // const osThemeRef = useOsTheme();
 // const osTheme = osThemeRef;
 // const currentTheme = reactive({
@@ -12,15 +10,8 @@ import { useStore } from './store';
 //   osThemeRef.value === 'dark' ? currentTheme.theme = darkTheme : currentTheme.theme = null;
 // })
 
-//Check scrcpy installation status 
-const store = useStore();
-const exec = require('child_process').exec;
-let scrcpyWorker = exec(`which scrcpy`);
-scrcpyWorker.stdout.on('data', function (data: String) {
-  if (data.indexOf("not found") == -1) {
-    store.scrcpyInstalled();
-  }
-})
+//get OS type
+localStorage.setItem("os", new OSUtils().getBasicInfo().osType.toLowerCase())
 </script>
 
 <template>

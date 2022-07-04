@@ -1,7 +1,8 @@
 <template>
   <n-layout has-sider class="scgui-main-container">
     <n-layout-sider bordered>
-      <n-menu class="scgui-main-menu" :options="menuOptions" :render-label="renderMenuLabel" default-value="Home" />
+      <n-menu class="scgui-main-menu" :options="menuOptions" :render-label="renderMenuLabel" default-value="Home"
+        v-model:value="currentRoute" />
     </n-layout-sider>
     <n-layout content-style="padding: 24px;">
       <router-view></router-view>
@@ -10,8 +11,8 @@
 </template>
 <script setup lang="ts">
 import { MenuOption } from "naive-ui";
-import { h, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { h, ref, watch } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { MenuList } from "@/router/MenuOptions";
 const menuOptions: MenuOption[] = MenuList;
 const renderMenuLabel = (option: MenuOption) => {
@@ -35,6 +36,14 @@ const renderMenuLabel = (option: MenuOption) => {
   }
   return option.label as string
 }
+const router = useRouter();
+const currentRoute = ref('Home');
+watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
+  const routeEndPoint = newValue.match(/([^/]+)$/);
+  if (routeEndPoint && routeEndPoint.length > 0) {
+    currentRoute.value = routeEndPoint[0]
+  } else currentRoute.value = 'Home';
+}, { immediate: true })
 </script>
 <style scoped lang="scss">
 @import "@/assets/css/Index.scss";

@@ -11,7 +11,7 @@ export const MenuList: MenuOption[] = [
     type: 'group',
     label: '设置',
     key: 'Settings',
-    children: [ 
+    children: [
       {
         route: true,
         name: 'Connection',
@@ -56,9 +56,19 @@ export const MenuList: MenuOption[] = [
       // },
     ]
   },
+  // {
+  //   label: '关于',
+  //   key: 'About',
+  //   href: 'https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F/3199'
+  // },
   {
-    label: '关于',
-    key: 'About',
-    href: 'https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F/3199'
-  }
+    route: true,
+    name: 'About',
+    label: '关于'
+  },
+  {
+    route: true,
+    name: 'MySettings',
+    label: '软件设置'
+  },
 ]

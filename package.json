@@ -18,6 +18,9 @@
     "mac": {
       "category": "public.app-category.utilities"
     },
+    "win": {
+      "requestedExecutionLevel": "requireAdministrator"
+    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
