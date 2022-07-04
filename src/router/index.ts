@@ -14,15 +14,15 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: () => import("@/views/Home.vue"),
         meta: {
-          title: '首页'
+          title: 'Scrcpy GUI'
         }
       },
       {
-        path: 'Settings/Streaming',
-        name: 'Streaming',
-        component: () => import("@/views/Settings/Streaming.vue"),
+        path: 'Settings/Mirror',
+        name: 'Mirror',
+        component: () => import("@/views/Settings/Mirror.vue"),
         meta: {
-          title: '串流设置'
+          title: '镜像'
         }
       },
       {
@@ -30,7 +30,39 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Capture',
         component: () => import("@/views/Settings/Capture.vue"),
         meta: {
-          title: '录制和采集设置'
+          title: '录制和采集'
+        }
+      },
+      {
+        path: 'Settings/Connection',
+        name: 'Connection',
+        component: () => import("@/views/Settings/Connection.vue"),
+        meta: {
+          title: '连接性'
+        }
+      },
+      {
+        path: 'Settings/Window',
+        name: 'Window',
+        component: () => import("@/views/Settings/Window.vue"),
+        meta: {
+          title: '窗口'
+        }
+      },
+      {
+        path: 'Settings/InputControl',
+        name: 'InputControl',
+        component: () => import("@/views/Settings/InputControl.vue"),
+        meta: {
+          title: '输入'
+        }
+      },
+      {
+        path: 'Settings/Others',
+        name: 'Others',
+        component: () => import("@/views/Settings/Others.vue"),
+        meta: {
+          title: '其它'
         }
       },
     ]

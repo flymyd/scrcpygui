@@ -2,20 +2,20 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('default', {
   state: () => ({
-    isInstallScrcpy: false,
     scrcpyVersion: '',
+    scrcpyInfo: [],
+    adbVersion: '',
   }),
   getters: {},
   actions: {
-    scrcpyInstalled() {
-      this.isInstallScrcpy = true;
-      const exec = require('child_process').exec;
-      let scrcpyWorker;
-      scrcpyWorker = exec(`scrcpy --version`)
-      scrcpyWorker.stdout.on('data', (data: string) => {
-        console.log(data)
-        this.scrcpyVersion = data;
-      })
+    scrcpyInstalled(version: string) {
+      this.scrcpyVersion = version;
+    },
+    setScrcpyInfo(info: Array<any>) {
+      this.scrcpyInfo = info;
+    },
+    adbInstalled(version: string) {
+      this.adbVersion = version;
     }
   },
 })

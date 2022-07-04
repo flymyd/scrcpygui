@@ -1,6 +1,6 @@
 <template>
   <div>
-    串流选项
+    其它
   </div>
 </template>
 <script setup lang="ts">
