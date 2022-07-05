@@ -5,6 +5,9 @@
       欢迎使用Scrcpy GUI
     </n-gradient-text>
     <div class="scgui-install-status flex-row">
+      <n-tag :bordered="false" type="info">
+        Scrcpy GUI v1.24
+      </n-tag>
       <n-tag :bordered="false" :type="adbVersion ? 'success' : 'error'">
         ADB{{ adbVersion ? ` ${adbVersion}` : '未找到' }}
       </n-tag>
