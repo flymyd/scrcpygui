@@ -1,6 +1,6 @@
 <template>
   <div class="scgui-home flex-col">
-    <img class="scgui-home-icon" :src="icon"/>
+    <img class="scgui-home-icon" :src="icon" />
     <n-gradient-text class="scgui-home-title" type="success">
       欢迎使用Scrcpy GUI
     </n-gradient-text>
@@ -9,15 +9,14 @@
         ADB{{ adbVersion ? ` ${adbVersion}` : '未找到' }}
       </n-tag>
       <n-tag :class="scrcpyVersion ? 'scgui-tag-can-click' : ''" :bordered="false"
-             :type="scrcpyVersion ? 'success' : 'error'" @click="showScrcpyInfo = true">
+        :type="scrcpyVersion ? 'success' : 'error'" @click="showScrcpyInfo = true">
         Scrcpy{{ scrcpyVersion ? ` ${scrcpyVersion}` : '未找到' }}
       </n-tag>
     </div>
     <!-- If cannot located ADB or Scrcpy executable binary -->
-    <div v-if="!adbVersion || !scrcpyVersion">
-      <n-button type="error" size="large" @click="goSettings">{{ settingsHint }}</n-button>
-      <!-- https://github.com/Genymobile/scrcpy#get-the-app -->
-    </div>
+    <n-button v-if="!adbVersion || !scrcpyVersion" type="error" size="large" @click="goSettings">{{ settingsHint }}
+    </n-button>
+    <no-executable v-if="!adbVersion || !scrcpyVersion" style="width: 100%;"></no-executable>
     <!-- These functions must need ADB interfaces -->
     <div v-if="adbVersion">
       <n-button type="success" size="large" v-if="adbVersion && scrcpyVersion" @click="start">开始镜像 →</n-button>
@@ -32,20 +31,20 @@
   </n-modal>
 </template>
 <script setup lang="ts">
-import {useStore} from "@/store";
-import {checkADBVersion, checkScrcpyVersion} from "@/utils/EnvUtils";
-import {Process} from "@/utils/Process";
-import {reactive, ref} from "@vue/reactivity";
-import {hi} from "date-fns/locale";
-import {storeToRefs} from "pinia";
-import {computed, onMounted} from "vue";
-import {useRouter} from "vue-router";
+import { useStore } from "@/store";
+import { reactive, ref } from "@vue/reactivity";
+import { hi } from "date-fns/locale";
+import { storeToRefs } from "pinia";
+import { computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import icon from "/icon.svg";
-import {getAttachedDevices} from "@/utils/Adb";
+import { getAttachedDevices } from "@/utils/Adb";
+import NoExecutable from "@/components/NoExecutable.vue";
+import { checkADBVersion, checkScrcpyVersion } from "@/utils/EnvUtils";
 
 const store = useStore();
 const router = useRouter();
-const {scrcpyVersion, adbVersion, scrcpyInfo} = storeToRefs(store);
+const { scrcpyVersion, adbVersion, scrcpyInfo } = storeToRefs(store);
 const showScrcpyInfo = ref(false);
 //Check scrcpy installation status 
 checkADBVersion();

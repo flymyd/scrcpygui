@@ -8,7 +8,7 @@
         </template>
       </n-list-item> -->
       <n-list-item>
-        <n-thing title="ADB可执行文件路径">
+        <n-thing title="ADB可执行文件路径 ( adb.exe或adb )">
           <n-input-group>
             <n-input type="text" :placeholder="placeholders.adbPath" @input="setAdbPath" v-model:value="adbPath" />
             <n-upload :max="1" ref="adbSelector" :show-cancel-button="false" :default-upload="false"
@@ -20,7 +20,7 @@
         </n-thing>
       </n-list-item>
       <n-list-item>
-        <n-thing title="Scrcpy可执行文件路径">
+        <n-thing title="Scrcpy可执行文件路径 ( scrcpy.exe或scrcpy )">
           <n-input-group>
             <n-input type="text" :placeholder="placeholders.scrcpyPath" @input="setScrcpyPath"
               v-model:value="scrcpyPath" />

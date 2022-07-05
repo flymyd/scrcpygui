@@ -12,11 +12,11 @@ export function getAttachedDevices() {
                     reject([]);
                 },
                 stdout(out: string) {
-                    if (out.indexOf("List of devices attached") !== -1) {
+                    if (out.includes("List of devices attached")) {
                         let res = out.split("\n");
                         let deviceList: string[] = [];
                         res.forEach(row => {
-                            if (row.indexOf("\tdevice") !== -1) {
+                            if (row.includes("\tdevice")) {
                                 deviceList.push(row.split("\tdevice")![0]);
                             }
                         })

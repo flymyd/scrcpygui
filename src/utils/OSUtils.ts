@@ -5,7 +5,7 @@ export class OSUtils {
       hostName: this.os.hostname(),
       osType: this.os.type(),
       archType: this.os.arch(),
-      buildOS: this.os.platform(),
+      osPlatform: this.os.platform(),
     }
   }
   getNetworkInterfaces() {
