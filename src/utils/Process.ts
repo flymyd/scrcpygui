@@ -1,4 +1,5 @@
-import {mySettingsStore} from "@/store";
+import { mySettingsStore } from "@/store";
+import { useNotification } from "naive-ui";
 
 export class Process {
     execFileFunc: any;
@@ -23,19 +24,30 @@ export class Process {
     }
 
     exec(options: ProcessOptions) {
-        options.cmd = userPathFix(options.cmd)
-        this.worker = this.execFunc(options.cmd)
-        this.callbackSettings(options)
+        try {
+            options.cmd = userPathFix(options.cmd)
+            this.worker = this.execFunc(options.cmd)
+            this.callbackSettings(options)
+        } catch (e) {
+            console.error(e)
+            const notification = useNotification()
+            window.$message.error("命令执行错误, 请检查ADB或Scrcpy路径配置");
+        }
     }
 
     execFile(options: ProcessOptions) {
-        options.cmd = userPathFix(options.cmd)
-        if (typeof options.args == "undefined") {
-            this.worker = this.execFileFunc(options.cmd)
-        } else {
-            this.worker = this.execFileFunc(options.cmd, options.args)
+        try {
+            options.cmd = userPathFix(options.cmd)
+            if (typeof options.args == "undefined") {
+                this.worker = this.execFileFunc(options.cmd)
+            } else {
+                this.worker = this.execFileFunc(options.cmd, options.args)
+            }
+            this.callbackSettings(options)
+        } catch (e) {
+            console.error(e)
+            window.$message.error("命令执行错误, 请检查ADB或Scrcpy路径配置");
         }
-        this.callbackSettings(options)
     }
 }
 
