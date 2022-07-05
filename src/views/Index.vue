@@ -10,28 +10,39 @@
   </n-layout>
 </template>
 <script setup lang="ts">
-import { MenuOption } from "naive-ui";
-import { h, ref, watch } from "vue";
+import { MenuOption, useMessage } from "naive-ui";
+import { h, ref, resolveDirective, watch, withDirectives } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { MenuList } from "@/router/MenuOptions";
+const nomove = resolveDirective('nomove') as any;
 const menuOptions: MenuOption[] = MenuList;
 const renderMenuLabel = (option: MenuOption) => {
   if ('href' in option) {
     return h(
-      'a',
-      { href: option.href, target: '_blank' },
-      option.label as string
+      'div', [
+      withDirectives(
+        h('a',
+          { href: option.href, target: '_blank' },
+          { default: () => option.label }),
+        [[nomove, '']]
+      )
+    ]
     )
   } else if ('route' in option) {
     return h(
-      RouterLink as any,
-      {
-        to: {
-          name: option.name,
-          params: option.params
-        }
-      },
-      { default: () => option.label }
+      'div', [
+      withDirectives(
+        h(RouterLink as any,
+          {
+            to: {
+              name: option.name,
+              params: option.params
+            }
+          },
+          { default: () => option.label }),
+        [[nomove, '']]
+      )
+    ]
     )
   }
   return option.label as string
@@ -44,6 +55,7 @@ watch(() => router.currentRoute.value.path, (newValue, oldValue) => {
     currentRoute.value = routeEndPoint[0]
   } else currentRoute.value = 'Home';
 }, { immediate: true })
+Object.assign(window, { "$message": useMessage() })
 </script>
 <style scoped lang="scss">
 @import "@/assets/css/Index.scss";

@@ -22,7 +22,6 @@ export const useStore = defineStore('default', {
 
 export const mySettingsStore = defineStore('mySettings', {
   state: () => ({
-    autoStart: false,
     adbPath: localStorage.getItem("adbPath") ? localStorage.getItem("adbPath") : '',
     scrcpyPath: localStorage.getItem("scrcpyPath") ? localStorage.getItem("scrcpyPath") : '',
   }),

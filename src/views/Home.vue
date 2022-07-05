@@ -64,6 +64,7 @@ const start = async () => {
   const devices: any = await getAttachedDevices().catch(err => {
     return err;
   })
+  console.log(devices)
   if (devices.length < 1) {
     //无设备逻辑
     return false;

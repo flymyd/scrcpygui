@@ -57,8 +57,8 @@ export const MenuList: MenuOption[] = [
     ]
   },
   // {
-  //   label: '关于',
-  //   key: 'About',
+  //   label: '关于1',
+  //   key: 'About1',
   //   href: 'https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F/3199'
   // },
   {
