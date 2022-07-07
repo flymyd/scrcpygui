@@ -21,9 +21,12 @@
     </n-button>
     <no-executable v-if="!adbVersion || !scrcpyVersion" style="width: 100%;"></no-executable>
     <!-- These functions must need ADB interfaces -->
-    <div v-if="adbVersion">
-      <n-button type="success" size="large" v-if="adbVersion && scrcpyVersion" @click="start">开始镜像 →</n-button>
-    </div>
+    <template v-if="connectedDeviceList.length < 1">
+      <n-button type="warning" size="large">暂无设备连接</n-button>
+      <no-device-connected style="width: 100%;"></no-device-connected>
+    </template>
+    <n-button v-if="connectedDeviceList.length === 1" type="success" size="large" @click="start">开始镜像 →</n-button>
+    <connected-devices v-if="connectedDeviceList.length > 1" style="width: 100%;"></connected-devices>
   </div>
   <n-modal v-model:show="showScrcpyInfo" transform-origin="mouse" v-if="scrcpyVersion">
     <n-card style="width: 50%;" title="Scrcpy Info" :bordered="false" size="medium" role="dialog" aria-modal="true">
@@ -44,10 +47,13 @@ import icon from "/icon.svg";
 import { getAttachedDevices } from "@/utils/Adb";
 import NoExecutable from "@/components/NoExecutable.vue";
 import { checkADBVersion, checkScrcpyVersion } from "@/utils/EnvUtils";
+import ConnectedDevices from "@/components/ConnectedDevices.vue";
+import { Process } from "@/utils/Process";
+import NoDeviceConnected from "../components/NoDeviceConnected.vue";
 
 const store = useStore();
 const router = useRouter();
-const { scrcpyVersion, adbVersion, scrcpyInfo } = storeToRefs(store);
+const { scrcpyVersion, adbVersion, connectedDeviceList, scrcpyInfo } = storeToRefs(store);
 const showScrcpyInfo = ref(false);
 //Check scrcpy installation status 
 checkADBVersion();
@@ -62,29 +68,31 @@ const settingsHint = computed(() => {
 const goSettings = () => {
   router.push('MySettings')
 }
-const start = async () => {
-  const devices: any = await getAttachedDevices().catch(err => {
-    return err;
+const start = () => {
+  //TODO 单设备快速启动
+  new Process().exec({
+    cmd: 'scrcpy',
+    stderr(err: string) {
+      console.log(err)
+    },
+    stdout(out: string) {
+      console.log(out)
+    },
+    close(out: string) {
+      console.log(out)
+    }
   })
-  console.log(devices)
-  if (devices.length < 1) {
-    //无设备逻辑
-    return false;
-  } else if (devices.length === 1) {
-    //单设备逻辑，判断连接模式
-  } else {
-    //选择连接设备
-  }
-  // new Process().exec({
-  //   cmd: 'scrcpy -d',
-  //   stderr(err: string) {
-  //     console.log(err)
-  //   },
-  //   stdout(out: string) {
-  //     console.log(out)
-  //   }
-  // })
 }
+  // if (devices.length < 1) {
+  //   //无设备逻辑
+  //   return false;
+  // } else if (devices.length === 1) {
+  //   //单设备逻辑，判断连接模式
+  // } else {
+  //   //选择连接设备
+  // }
+
+
 </script>
 <style scoped lang="scss">
 @import "@/assets/css/Home.scss";

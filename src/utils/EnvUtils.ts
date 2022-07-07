@@ -15,7 +15,7 @@ export function checkADBVersion() {
         if (arr.length > 0) {
           let version = arr[0].match(/([^version ]+)$/)
           if (version && version.length > 0) {
-            store.adbInstalled(version[0]);
+            store.adbVersion = version[0];
           } else store.adbVersion = '';
         }
       }
@@ -38,8 +38,8 @@ export function checkScrcpyVersion() {
     args: ['--version'],
     stdout(out: string) {
       if (out.includes("scrcpy")) {
-        let arr = out.split("\n")
-        store.setScrcpyInfo(arr);
+        let arr = out.split("\n") as any
+        store.scrcpyInfo = arr;
         if (arr.length > 0) {
           let version = arr[0].match(/(?<=scrcpy ).*?(?= <)/)
           if (version && version.length > 0) {

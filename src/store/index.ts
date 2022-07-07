@@ -5,17 +5,15 @@ export const useStore = defineStore('default', {
     scrcpyVersion: '',
     scrcpyInfo: [],
     adbVersion: '',
+    connectedDeviceList: [],
+    connectingDeviceInfo: {}
   }),
-  getters: {},
+  getters: {
+    
+  },
   actions: {
-    scrcpyInstalled(version: string) {
-      this.scrcpyVersion = version;
-    },
-    setScrcpyInfo(info: any) {
-      this.scrcpyInfo = info;
-    },
-    adbInstalled(version: string) {
-      this.adbVersion = version;
+    getDeviceInfoBySerial() {
+
     }
   },
 })

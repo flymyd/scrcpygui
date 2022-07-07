@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { darkTheme, useOsTheme } from 'naive-ui';
+import { storeToRefs } from 'pinia';
 import { onMounted, reactive, watchEffect } from 'vue';
+import { useStore } from './store';
+import { getAttachedDevices } from './utils/Adb';
 import { OSUtils } from './utils/OSUtils';
 //set theme
 const osThemeRef = useOsTheme();
@@ -13,6 +16,29 @@ watchEffect(() => {
 
 //get OS Platform
 localStorage.setItem("os", new OSUtils().getBasicInfo().osPlatform.toLowerCase())
+
+//scan connected to adb devices serial
+const store = useStore();
+const { scrcpyVersion, adbVersion, scrcpyInfo, connectedDeviceList } = storeToRefs(store);
+async function wait(time: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, time)
+  })
+}
+const getDevicesList = async () => {
+  while (true) {
+    await wait(1000);
+    if (adbVersion.value && scrcpyVersion.value) {
+      const devices: any = await getAttachedDevices().catch(err => {
+        return err;
+      })
+      connectedDeviceList.value = devices;
+    }
+  }
+}
+onMounted(() => {
+  getDevicesList();
+})
 </script>
 <template>
   <n-config-provider :theme="currentTheme.theme" inline-theme-disabled>
