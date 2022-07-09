@@ -82,7 +82,15 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
     ]
-  }
+  },
+  {
+    path: '/Configs',
+    name: 'Configs',
+    component: () => import("@/views/Configs.vue"),
+    meta: {
+      title: '配置管理'
+    }
+  },
 ];
 
 const router = createRouter({

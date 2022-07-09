@@ -9,7 +9,7 @@ export const useStore = defineStore('default', {
     connectingDeviceInfo: {}
   }),
   getters: {
-    
+
   },
   actions: {
     getDeviceInfoBySerial() {

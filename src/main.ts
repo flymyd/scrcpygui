@@ -2,10 +2,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import { createPinia } from 'pinia'
+import '@purge-icons/generated';
+import SIcon from '@/components/SIcon';
 const pinia = createPinia()
 createApp(App)
   .use(router)
   .use(pinia)
+  .component("s-icon", SIcon)
   .directive('nomove', {
     mounted(el: any) {
       let agent = window.navigator.userAgent.toLowerCase(), start, move: any, end: any

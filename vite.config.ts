@@ -4,6 +4,8 @@ import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import AutoImport from 'unplugin-auto-import/vite'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import PurgeIcons from 'vite-plugin-purge-icons'
 const path = require('path');
 export default defineConfig({
   // base: path.resolve(__dirname, './dist/'),
@@ -19,6 +21,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VueSetupExtend(),
+    vueJsx(),
     Components({
       resolvers: [NaiveUiResolver()],
       dts: 'components.d.ts'
@@ -26,7 +29,8 @@ export default defineConfig({
     AutoImport({
       // dts: 'src/auto-imports.d.ts', // 可以自定义文件生成的位置，默认是根目录下
       imports: ['vue']
-    })
+    }),
+    PurgeIcons({ content: ['**/*.html', '**/*.ts', '**/*.js', '**/*.vue'] })
   ],
 })
 // import { defineConfig } from 'vite'
