@@ -1,9 +1,14 @@
 <template>
   <div class="config-select">
-    <n-form ref="formRef" label-placement="left" label-width="auto" require-mark-placement="right-hanging">
+    <n-form label-placement="left" label-width="auto" require-mark-placement="right-hanging">
       <n-form-item label="配置文件">
-        <n-select class="config-selector" v-model:value="serial" :options="configNames" default-value="Default"
+        <n-select class="config-selector" v-model:value="serial" :options="configNames" :default-value="defaultValue"
           @update:value="onUpdateValue" />
+        <n-button secondary strong @click="saveConfig">
+          <template #icon>
+            <s-icon icon="bx:save" size="16"></s-icon>
+          </template>
+        </n-button>
         <n-button secondary strong @click="openConfigSettings">
           <template #icon>
             <s-icon icon="ant-design:setting-outlined" size="16"></s-icon>
@@ -19,17 +24,21 @@ import { SelectBaseOption, SelectMixedOption } from 'naive-ui/es/select/src/inte
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { ipcRenderer } from 'electron'
 const serial = ref();
 const emits = defineEmits<{
-  (e: 'change', value: string): void
+  (e: 'change', value: string): void,
+  (e: 'save'): void,
 }>()
 const scrcpyConfigStore = useScrcpyConfigStore();
 const { scrcpyConfigs } = storeToRefs(scrcpyConfigStore);
+const defaultValue = ref('Default')
 const configNames = computed(() => {
   let opts: SelectMixedOption[] = [];
   Object.keys(scrcpyConfigs.value).forEach(n => {
     opts.push({ label: n, value: n })
+    if (scrcpyConfigs.value[n].isDefault) {
+      defaultValue.value = n;
+    }
   })
   return opts;
 })
@@ -42,6 +51,9 @@ const openConfigSettings = () => {
     name: 'Configs'
   })
 }
+const saveConfig = () => {
+  emits('save');
+}
 </script>
 
 <style scoped lang="scss">
@@ -52,5 +64,9 @@ const openConfigSettings = () => {
 
 .config-selector {
   margin-right: 12px;
+}
+
+.n-button:last-child {
+  margin-left: 10px;
 }
 </style>

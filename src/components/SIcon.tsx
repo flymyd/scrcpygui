@@ -5,13 +5,15 @@ export default defineComponent({
   props: {
     icon: { type: String, required: true },
     size: { type: [String, Number], default: '18' },
+    slotStyle: { type: [Object, String], default: '' }
   },
-  setup(props) {
+  setup(props, ctx) {
     return () => {
       return (
-        <span style={{ fontSize: props.size + 'px' }} class="s-icon">
+        <div style={{ fontSize: props.size + 'px', display: 'flex', alignItems: 'center', flexDirection: 'row' }} class="s-icon">
           <span class="iconify" style="vertical-align: middle;" data-icon={props.icon}></span>
-        </span>
+          <div style={props.slotStyle}>{ctx.slots.default && ctx.slots.default()}</div>
+        </div >
       )
     }
   },

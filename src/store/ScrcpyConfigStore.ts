@@ -8,7 +8,12 @@ import { defineStore } from 'pinia'
 
 export const useScrcpyConfigStore = defineStore('scrcpyConfig', {
   state: () => ({
-    scrcpyConfigs: localStorage.getItem("scrcpyConfigs") ? JSON.parse(localStorage.getItem("scrcpyConfigs") as string) : { Default: {} }
+    scrcpyConfigs: localStorage.getItem("scrcpyConfigs") ? JSON.parse(localStorage.getItem("scrcpyConfigs") as string) : {
+      Default: {
+        intro: 'Default config',
+        isDefault: true
+      }
+    }
   }),
   getters: {
     getScrcpyConfig(serial: string = "Default"): UserConfigObject | object {
@@ -17,19 +22,36 @@ export const useScrcpyConfigStore = defineStore('scrcpyConfig', {
   },
   actions: {
     saveScrcpyConfig(
-      type: "connection" | "mirror" | "capture" | "window" | "input" | "others",
-      config: Connection | Mirror | Capture | Window | InputControl | Others, serial: string = "Default"
+      type: "connection" | "mirror" | "capture" | "window" | "input" | "others" | "intro" | "isDefault",
+      config: Connection | Mirror | Capture | Window | InputControl | Others | string | boolean, serial: string = "Default"
     ) {
       const userConfig: UserConfigObject = this.scrcpyConfigs[serial];
-      let toConfig = userConfig[type];
-      toConfig = config;
+      if (type == 'isDefault') {
+        this.setAllConfigToNoDefault();
+      }
+      //@ts-ignore
+      userConfig[type] = config;
       localStorage.setItem("scrcpyConfigs", JSON.stringify(this.scrcpyConfigs))
-      return;
     },
-    addScrcpyConfig(serial: string) {
-      this.scrcpyConfigs[serial] = {}
+    addScrcpyConfig(serial: string, config: any) {
+      if (config.isDefault) {
+        this.setAllConfigToNoDefault();
+      }
+      this.scrcpyConfigs[serial] = config;
       localStorage.setItem("scrcpyConfigs", JSON.stringify(this.scrcpyConfigs))
-      return;
+    },
+    deleteScrcpyConfig(serial: string) {
+      if (this.scrcpyConfigs[serial]) {
+        delete this.scrcpyConfigs[serial]
+      }
+      localStorage.setItem("scrcpyConfigs", JSON.stringify(this.scrcpyConfigs))
+    },
+    setAllConfigToNoDefault() {
+      Object.keys(this.scrcpyConfigs).forEach(k => {
+        if (this.scrcpyConfigs[k].isDefault) {
+          this.scrcpyConfigs[k].isDefault = false;
+        }
+      })
     }
   },
 })

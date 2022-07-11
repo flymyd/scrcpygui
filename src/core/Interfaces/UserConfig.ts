@@ -10,7 +10,9 @@ export interface UserConfigObject {
   capture: Capture,
   window: Window,
   input: InputControl,
-  others: Others
+  others: Others,
+  isDefault: boolean,
+  intro: string
 }
 
 export interface UserConfig {

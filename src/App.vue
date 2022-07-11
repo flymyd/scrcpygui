@@ -5,6 +5,7 @@ import { onMounted, reactive, watchEffect } from 'vue';
 import { useStore } from './store';
 import { getAttachedDevices } from './utils/Adb';
 import { OSUtils } from './utils/OSUtils';
+ import { zhCN, dateZhCN } from 'naive-ui'
 //set theme
 const osThemeRef = useOsTheme();
 const currentTheme = reactive({
@@ -41,7 +42,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <n-config-provider :theme="currentTheme.theme" inline-theme-disabled>
+  <n-config-provider :theme="currentTheme.theme" inline-theme-disabled :locale="zhCN">
     <n-message-provider placement="top-right">
       <router-view></router-view>
     </n-message-provider>
