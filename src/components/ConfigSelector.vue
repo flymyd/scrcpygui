@@ -1,6 +1,6 @@
 <template>
   <div class="config-select">
-    <n-form label-placement="left" label-width="auto" require-mark-placement="right-hanging">
+    <n-form label-placement="left" label-width="auto" require-mark-placement="right-hanging" :show-feedback="false">
       <n-form-item label="配置文件">
         <n-select class="config-selector" v-model:value="serial" :options="configNames" :default-value="defaultValue"
           @update:value="onUpdateValue" />
@@ -38,6 +38,7 @@ const configNames = computed(() => {
     opts.push({ label: n, value: n })
     if (scrcpyConfigs.value[n].isDefault) {
       defaultValue.value = n;
+      emits('change', n)
     }
   })
   return opts;

@@ -1,12 +1,6 @@
 <template>
   <div>
     <n-list bordered>
-      <!-- <n-list-item>
-        <n-thing title="随系统启动" />
-        <template #suffix>
-          <n-switch v-model:value="autoStart" />
-        </template>
-      </n-list-item> -->
       <n-list-item>
         <n-thing title="ADB可执行文件路径 ( adb.exe或adb )">
           <n-input-group>
