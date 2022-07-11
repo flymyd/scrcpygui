@@ -1,9 +1,4 @@
-import { Connection } from "../core/Interfaces/Connection";
-import { InputControl } from "../core/Interfaces/InputControl";
-import { Mirror } from "../core/Interfaces/Mirror";
-import { Others } from "../core/Interfaces/Others";
-import { Capture } from "../core/Interfaces/Capture";
-import { UserConfig, UserConfigObject } from "../core/Interfaces/UserConfig";
+import { UserConfigObject, Connection, Mirror, Capture, InputControl, Others } from '@/core/Interfaces';
 import { defineStore } from 'pinia'
 
 export const useScrcpyConfigStore = defineStore('scrcpyConfig', {
