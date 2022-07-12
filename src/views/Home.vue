@@ -46,7 +46,6 @@ import { useRouter } from "vue-router";
 import icon from "/icon.svg";
 import { getAttachedDevices } from "@/utils/Adb";
 import NoExecutable from "@/components/NoExecutable.vue";
-import { checkADBVersion, checkScrcpyVersion } from "@/utils/EnvUtils";
 import ConnectedDevices from "@/components/ConnectedDevices.vue";
 import { Process } from "@/utils/Process";
 import NoDeviceConnected from "../components/NoDeviceConnected.vue";
@@ -55,9 +54,6 @@ const store = useStore();
 const router = useRouter();
 const { scrcpyVersion, adbVersion, connectedDeviceList, scrcpyInfo } = storeToRefs(store);
 const showScrcpyInfo = ref(false);
-//Check scrcpy installation status 
-checkADBVersion();
-checkScrcpyVersion();
 const settingsHint = computed(() => {
   let info = '';
   if (!adbVersion.value) info += 'ADB ';

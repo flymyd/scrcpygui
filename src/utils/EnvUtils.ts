@@ -58,19 +58,70 @@ export function checkScrcpyVersion() {
     }
   })
 }
-
+/**
+ * 获取已连接的设备信息
+ */
+export function getAttachedDevices() {
+  return new Promise((resolve, reject) => {
+    try {
+      new Process().exec({
+        cmd: 'adb devices',
+        stderr() {
+          reject([]);
+        },
+        stdout(out: string) {
+          if (out.includes("List of devices attached")) {
+            let res = out.split("\n");
+            let deviceList: string[] = [];
+            res.forEach(row => {
+              if (row.includes("\tdevice")) {
+                deviceList.push(row.split("\tdevice")![0]);
+              }
+            })
+            resolve(deviceList)
+          } else reject([]);
+        },
+        close() {
+          reject([]);
+        }
+      })
+    } catch (e) {
+      reject([]);
+    }
+  })
+}
 /**
  * check available encoders
  */
-//TODO
 export function getDeviceEncoders() {
-  new Process().execFile({
-    cmd: 'scrcpy',
-    args: ['--encoder', 'foo'],
-    stdout(out: string) {
-      if (out.includes("scrcpy --encoder")) {
-        console.log(out)
-      }
-    },
+  return new Promise((resolve, reject) => {
+    try {
+      new Process().execFile({
+        cmd: 'scrcpy',
+        args: ['--no-power-on', '--encoder', 'foo'],
+        stderr(out: string) {
+          if (!out.includes("scrcpy")) {
+            reject([]);
+          }
+        },
+        stdout(out: string) {
+          if (out.includes("scrcpy --encoder")) {
+            const reg = /\'(.*?)\'/;
+            let res: string[] = [];
+            out.split("\n").forEach(row => {
+              if (row.includes("--encoder") && reg.test(row)) {
+                res.push(row.match(reg)![1])
+              }
+            })
+            resolve(res)
+          }
+        },
+        close() {
+          reject([]);
+        }
+      })
+    } catch (e) {
+      reject([]);
+    }
   })
 }

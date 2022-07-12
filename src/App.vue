@@ -3,9 +3,9 @@ import { darkTheme, useOsTheme } from 'naive-ui';
 import { storeToRefs } from 'pinia';
 import { onMounted, reactive, watchEffect } from 'vue';
 import { useStore } from './store';
-import { getAttachedDevices } from './utils/Adb';
 import { OSUtils } from './utils/OSUtils';
- import { zhCN, dateZhCN } from 'naive-ui'
+import { zhCN, dateZhCN } from 'naive-ui'
+import { checkADBVersion, checkScrcpyVersion, getAttachedDevices } from './utils/EnvUtils';
 //set theme
 const osThemeRef = useOsTheme();
 const currentTheme = reactive({
@@ -29,6 +29,9 @@ async function wait(time: number) {
 const getDevicesList = async () => {
   while (true) {
     await wait(1000);
+    //Check scrcpy installation status 
+    checkADBVersion();
+    checkScrcpyVersion();
     if (adbVersion.value && scrcpyVersion.value) {
       const devices: any = await getAttachedDevices().catch(err => {
         return err;

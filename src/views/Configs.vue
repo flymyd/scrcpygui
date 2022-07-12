@@ -30,7 +30,7 @@
                       </n-popconfirm>
                     </template>
                     <template v-else>
-                      <n-button type="success">默认配置</n-button>
+                      <n-button type="success" ghost>默认配置</n-button>
                     </template>
                   </div>
                 </template>
