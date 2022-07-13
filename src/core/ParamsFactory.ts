@@ -53,7 +53,7 @@ export const paramsMap = {
     params: '--serial',
     type: ATTACH_PARAMS_TYPE.SPACE
   },
-  //Others Settings
+  //Window Settings
   title: {
     params: '--window-title',
     type: ATTACH_PARAMS_TYPE.SPACE_STRING
@@ -90,6 +90,7 @@ export const paramsMap = {
     params: '--rotation',
     type: ATTACH_PARAMS_TYPE.SPACE
   },
+  //Others Settings
   readonly: {
     params: '--no-control',
     type: ATTACH_PARAMS_TYPE.ADD

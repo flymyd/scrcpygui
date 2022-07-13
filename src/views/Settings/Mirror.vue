@@ -1,7 +1,6 @@
 <template>
   <div>
     <config-selector @change="onChangeConfig" @save="onSave"></config-selector>
-    <!-- {{ configName }} -->
     <n-card title="镜像设置">
       <n-form label-placement="left" label-align="left" label-width="auto" require-mark-placement="right-hanging">
         <n-form-item label="分辨率">
@@ -48,25 +47,33 @@
   </div>
 </template>
 <script setup lang="ts">
+import * as _ from 'lodash'
 import { useStore } from '@/store';
 import { getDeviceEncoders } from '@/utils/EnvUtils';
 import { storeToRefs } from 'pinia';
-import { reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref, unref, watchEffect } from 'vue';
+import { useScrcpyConfigStore } from '@/store/ScrcpyConfigStore';
+import { Mirror } from '@/core/Interfaces';
 const store = useStore();
+const scrcpyStore = useScrcpyConfigStore();
 const { scrcpyVersion, adbVersion, connectedDeviceList, scrcpyInfo } = storeToRefs(store);
 const configName = ref("Default")
 const onChangeConfig = (e: string) => {
   configName.value = e
 }
-const mirrorForm = reactive({
-  reduceSize: undefined, //将镜像分辨率的长边降为该值，短边等比缩放。如设备分辨率为1920*1080，设置1024后变为1024*576
+const _mirrorFormProto_: Mirror = {
+  reduceSize: '', //将镜像分辨率的长边降为该值，短边等比缩放。如设备分辨率为1920*1080，设置1024后变为1024*576
   changeBitRate: 8, //镜像码率，默认为8M
   maxFps: 60, //采集帧率上限
   crop: '', //可以对设备屏幕进行裁剪，只镜像屏幕的一部分。如scrcpy --crop 1224:1440:0:0 即为显示以 (0,0) 为原点的1224x1440像素区域
   screenOrientation: 0, //屏幕方向 0:自然方向 1:逆时针旋转90° 2:180° 3:顺时针旋转90°
   encoder: '', //选择编码器
+};
+const mirrorForm: Mirror = ref({})
+const { scrcpyConfigs } = storeToRefs(scrcpyStore)
+watchEffect(() => {
+  mirrorForm.value = scrcpyConfigs.value[configName.value]?.mirror ?? _.clone(_mirrorFormProto_);
 })
-
 const isDetecting = ref(false);
 const showEncoderList = ref(false);
 const encoderList = reactive({
@@ -83,7 +90,6 @@ const detectEncoder = () => {
       encoderList.list = res as string[];
       showEncoderList.value = true;
     }).catch(err => {
-      console.log(err)
       window.$message.error("检测编码器失败！");
     }).finally(() => {
       isDetecting.value = false;
@@ -93,13 +99,19 @@ const detectEncoder = () => {
   }
 }
 const chooseEncoder = (encoder: string) => {
-  mirrorForm.encoder = encoder;
+  mirrorForm.value.encoder = encoder;
   showEncoderList.value = false;
 }
+
 const onSave = () => {
-  console.log(JSON.stringify(mirrorForm))
+  // let toSave = {} as any;
+  // Object.keys(form).forEach(k => {
+  //   if (!_.isUndefined(form[k]) && _.trim(form[k]) != '') {
+  //     toSave[k] = form[k]
+  //   }
+  // })
+  // scrcpyStore.saveScrcpyConfig("mirror", toSave, configName.value)
+  scrcpyStore.saveScrcpyConfig("mirror", unref(mirrorForm), configName.value)
+  window.$message.success("保存完毕！");
 }
 </script>
-
-<style scoped lang="scss">
-</style>

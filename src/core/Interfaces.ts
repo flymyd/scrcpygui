@@ -4,12 +4,13 @@ import { TextInjection, WindowRotation } from "./Enum"
  * https://github.com/Genymobile/scrcpy/blob/master/README.md#capture-configuration
  */
 export interface Mirror {
-  reduceSize?: number, //将镜像分辨率的长边降为该值，短边等比缩放。如设备分辨率为1920*1080，设置1024后变为1024*576
-  changeBitRate?: string, //镜像码率，默认为8M
+  reduceSize?: string, //将镜像分辨率的长边降为该值，短边等比缩放。如设备分辨率为1920*1080，设置1024后变为1024*576
+  changeBitRate?: number, //镜像码率，默认为8M
   maxFps?: number, //采集帧率上限
   crop?: string, //可以对设备屏幕进行裁剪，只镜像屏幕的一部分。如scrcpy --crop 1224:1440:0:0 即为显示以 (0,0) 为原点的1224x1440像素区域
   screenOrientation?: number, //屏幕方向 0:自然方向 1:逆时针旋转90° 2:180° 3:顺时针旋转90°
   encoder?: string, //选择编码器
+  [key: string]: any,
 }
 /**
  * 采集和录制设置
@@ -44,6 +45,7 @@ export interface Window {
   alwaysOnTop?: boolean, //总在顶部
   fullscreen?: boolean, //以全屏模式启动
   rotation?: WindowRotation, //屏幕旋转, 它只影响显示, 不影响录制
+  [key: string]: any,
 }
 /**
  * 其它选项
@@ -64,7 +66,7 @@ export interface Others {
  * 输入控制
  * https://github.com/Genymobile/scrcpy/#input-control
  */
- export interface InputControl {
+export interface InputControl {
   disableClipBoardAutoSync?: boolean,  //关闭剪贴板自动同步
   hidKeyboard?: boolean, //物理键盘模拟
   hidMouse?: boolean, //物理鼠标模拟

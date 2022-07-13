@@ -4,7 +4,7 @@
       <n-form-item label="配置文件">
         <n-select class="config-selector" v-model:value="serial" :options="configNames" :default-value="defaultValue"
           @update:value="onUpdateValue" />
-        <n-button secondary strong @click="saveConfig">
+        <n-button secondary strong type="success" @click="saveConfig">
           <template #icon>
             <s-icon icon="bx:save" size="16"></s-icon>
           </template>
