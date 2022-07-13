@@ -19,9 +19,10 @@ export interface Mirror {
 export interface Capture {
   recordFile?: string,  //录制屏幕的文件保存路径
   recordWithoutMirror?: boolean, //是否仅录制而不进行屏幕镜像
-  v4l2loopback?: string, //设置V4L2回环串流设备
   displayBuffer?: number, //设置显示缓冲时延，单位ms
+  v4l2loopback?: string, //设置V4L2回环串流设备
   v4l2Buffer?: number,   //设置V4L2回环串流缓冲时延，单位ms
+  [key: string]: any,
 }
 /**
  * 连接设置
