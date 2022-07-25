@@ -25,7 +25,7 @@
           <n-switch v-model:value="windowForm.alwaysOnTop" />
         </n-form-item>
         <n-form-item label="以全屏模式启动">
-          <n-switch v-model:value="windowForm.boolean" />
+          <n-switch v-model:value="windowForm.fullscreen" />
         </n-form-item>
         <n-form-item label="屏幕旋转">
           <n-radio-group v-model:value="windowForm.rotation" name="radiogroup">

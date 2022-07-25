@@ -49,14 +49,14 @@ const routes: Array<RouteRecordRaw> = [
           title: '录制和采集'
         }
       },
-      {
-        path: 'Settings/Connection',
-        name: 'Connection',
-        component: () => import("@/views/Settings/Connection.vue"),
-        meta: {
-          title: '连接性'
-        }
-      },
+      // {
+      //   path: 'Settings/Connection',
+      //   name: 'Connection',
+      //   component: () => import("@/views/Settings/Connection.vue"),
+      //   meta: {
+      //     title: '连接性'
+      //   }
+      // },
       {
         path: 'Settings/Window',
         name: 'Window',

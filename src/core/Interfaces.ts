@@ -54,7 +54,7 @@ export interface Window {
  */
 export interface Others {
   readonly?: boolean,   //禁用交互事件, 只读
-  monitor?: string | number, //选择多显示器之中的一个
+  monitor?: number, //选择多显示器之中的一个
   stayAwake?: boolean, //保持亮屏
   closeScreen?: boolean, //镜像时熄屏
   closeScreenAfterDisconnected?: boolean, //退出时熄屏
@@ -62,6 +62,7 @@ export interface Others {
   showTouches?: boolean, //为屏幕上的触摸提供指示
   disableScreensaver?: boolean, //关闭屏保
   pushDestination?: string, //推送非APK文件的目标目录, 如/sdcard/Movies/
+  [key: string]: any,
 }
 /**
  * 输入控制
@@ -74,6 +75,7 @@ export interface InputControl {
   forwardAllClicks?: boolean,  //转发所有鼠标按钮
   textInjection?: TextInjection, //文本注入模式, --prefer-text或--raw-key-events
   noKeyRepeat?: boolean, //禁止转发按下键的重复事件
+  [key: string]: any,
 }
 export interface UserConfigObject {
   connection: Connection,

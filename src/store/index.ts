@@ -5,16 +5,13 @@ export const useStore = defineStore('default', {
     scrcpyVersion: '',
     scrcpyInfo: [],
     adbVersion: '',
-    connectedDeviceList: [],
-    connectingDeviceInfo: {}
+    connectedDeviceList: [],  //当前连接的设备ID
   }),
   getters: {
 
   },
   actions: {
-    getDeviceInfoBySerial() {
 
-    }
   },
 })
 

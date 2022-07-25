@@ -12,11 +12,11 @@ export const MenuList: MenuOption[] = [
     label: '设置',
     key: 'Settings',
     children: [
-      {
-        route: true,
-        name: 'Connection',
-        label: '连接性'
-      },
+      // {
+      //   route: true,
+      //   name: 'Connection',
+      //   label: '连接性'
+      // },
       {
         route: true,
         name: 'Mirror',

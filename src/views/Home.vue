@@ -21,12 +21,14 @@
     </n-button>
     <no-executable v-if="!adbVersion || !scrcpyVersion" style="width: 100%;"></no-executable>
     <!-- These functions must need ADB interfaces -->
-    <template v-if="connectedDeviceList.length < 1">
-      <n-button type="warning" size="large">暂无设备连接</n-button>
+    <template v-if="adbVersion && scrcpyVersion">
+      <template v-if="connectedDeviceList.length < 1">
+        <n-button type="warning" ghost size="large">暂无设备连接</n-button>
+      </template>
       <no-device-connected style="width: 100%;"></no-device-connected>
+      <n-button v-if="connectedDeviceList.length === 1" type="success" size="large" @click="start">开始镜像 →</n-button>
+      <connected-devices v-if="connectedDeviceList.length >= 1" :devices="connectedDeviceList" style="width: 100%;"></connected-devices>
     </template>
-    <n-button v-if="connectedDeviceList.length === 1" type="success" size="large" @click="start">开始镜像 →</n-button>
-    <connected-devices v-if="connectedDeviceList.length > 1" style="width: 100%;"></connected-devices>
   </div>
   <n-modal v-model:show="showScrcpyInfo" transform-origin="mouse" v-if="scrcpyVersion">
     <n-card style="width: 50%;" title="Scrcpy Info" :bordered="false" size="medium" role="dialog" aria-modal="true">

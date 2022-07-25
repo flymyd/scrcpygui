@@ -2,7 +2,7 @@
   <div class="config-select">
     <n-form label-placement="left" label-width="auto" require-mark-placement="right-hanging" :show-feedback="false">
       <n-form-item label="配置文件">
-        <n-select class="config-selector" v-model:value="serial" :options="configNames" :default-value="defaultValue"
+        <n-select class="config-selector" v-model:value="config" :options="configNames" :default-value="defaultValue"
           @update:value="onUpdateValue" />
         <n-button secondary strong type="success" @click="saveConfig">
           <template #icon>
@@ -24,7 +24,7 @@ import { SelectBaseOption, SelectMixedOption } from 'naive-ui/es/select/src/inte
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-const serial = ref();
+const config = ref();
 const emits = defineEmits<{
   (e: 'change', value: string): void,
   (e: 'save'): void,
