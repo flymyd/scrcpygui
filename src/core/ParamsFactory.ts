@@ -1,4 +1,4 @@
-enum ATTACH_PARAMS_TYPE {
+export enum ATTACH_PARAMS_TYPE {
   'EQUALS', 'SPACE', 'ADD', 'SPACE_STRING'
 }
 export const paramsMap = {

@@ -85,7 +85,8 @@ export interface UserConfigObject {
   input: InputControl,
   others: Others,
   isDefault: boolean,
-  intro: string
+  intro: string,
+  [key: string]: any,
 }
 
 export interface UserConfig {

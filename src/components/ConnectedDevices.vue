@@ -17,9 +17,10 @@
   </div>
 </template> 
 <script setup lang="ts">
-import { PropType } from "vue";
+import { PropType, ref } from "vue";
 import DeviceConfigSelector from "./DeviceConfigSelector.vue";
 import { useScrcpyConfigStore } from '@/store/ScrcpyConfigStore';
+import { ParamsParser } from "@/core/DecodeParams";
 const scrcpyConfigStore = useScrcpyConfigStore();
 const props = defineProps({
   devices: {
@@ -32,6 +33,8 @@ const openWithConfig = (serial: string) => {
   console.log(JSON.stringify(scrcpyConfigStore.getDeviceUsingConfig(serial)))
   const config = scrcpyConfigStore.getDeviceUsingConfig(serial);
   //TODO 根据配置启动
+  const parser = new ParamsParser(config);
+  parser.parse();
 }
 </script>
 <style scoped lang="scss">

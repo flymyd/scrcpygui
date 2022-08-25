@@ -1,10 +1,22 @@
-<template>
+<!-- <template>
   <div>
-    窗口
+    窗
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from "vue";
 </script>
 <style scoped lang="scss">
+</style> -->
 
-</style>
+
+<template>
+	<div>
+    <h1>{{hello}}</h1>
+    <button @click="hello='哼哼哼'">点我</button>
+  </div>
+</template>
+<script setup lang="ts">
+import { ref } from "vue";
+const hello = ref("Hello World!")
+</script>
